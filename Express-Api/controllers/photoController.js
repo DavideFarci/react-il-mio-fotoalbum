@@ -27,7 +27,7 @@ async function index(req, res, next) {
     take: perPage, // elementi per pagina
     where: filters,
     include: {
-      category: {
+      categories: {
         select: {
           id: true,
           name: true,
