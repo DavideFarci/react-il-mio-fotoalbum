@@ -6,7 +6,8 @@ dotenv.config();
 const photosRouter = require("./routers/photosRouter");
 const categoriesRouter = require("./routers/categoriesRouter");
 const emailRouter = require("./routers/emailRouter");
-const routeNotFoundMiddlware = require("./middlwares/routeNotFound");
+const routeNotFoundMiddlware = require("./middlewares/routeNotFound");
+const usersRouter = require("./routers/usersRouter");
 
 const corsOptions = {
   origin: "http://localhost:5173",
@@ -25,6 +26,8 @@ app.use("/photo", photosRouter);
 app.use("/categories", categoriesRouter);
 // Rotte per l'entità messaggi
 app.use("/email", emailRouter);
+// Rotte per gli user (non specifico un percorso per rendere più pulito l'url)
+app.use("", usersRouter);
 
 // Errore 404 - Pagina non trovata
 app.use(routeNotFoundMiddlware);
