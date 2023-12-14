@@ -22,7 +22,32 @@ async function store(req, res) {
 }
 
 // DESTROY
-async function destroy(req, res) {}
+async function destroy(req, res) {
+  const { id } = req.params;
+
+  // Recupero il messaggio da eliminare
+  const category = await prisma.category.findUnique({
+    where: {
+      id: +id,
+    },
+  });
+
+  if (!category) {
+    throw new Error("Categoria non trovata");
+  }
+
+  // Disconnetto le relazioni con le tabella foto
+  await prisma.category.update({
+    where: {
+      id: +id,
+    },
+    data: {
+      photos: {
+        disconnect: category.photos?.map((photoId) => ({ id: photoId })),
+      },
+    },
+  });
+}
 
 module.exports = {
   index,
