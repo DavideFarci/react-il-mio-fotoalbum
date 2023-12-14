@@ -6,6 +6,7 @@ dotenv.config();
 const photosRouter = require("./routers/photosRouter");
 const categoriesRouter = require("./routers/categoriesRouter");
 const emailRouter = require("./routers/emailRouter");
+const routeNotFoundMiddlware = require("./middlwares/routeNotFound");
 
 const corsOptions = {
   origin: "http://localhost:5173",
@@ -24,6 +25,9 @@ app.use("/photo", photosRouter);
 app.use("/categories", categoriesRouter);
 // Rotte per l'entità messaggi
 app.use("/email", emailRouter);
+
+// Errore 404 - Pagina non trovata
+app.use(routeNotFoundMiddlware);
 
 app.listen(process.env.PORT || 3000, () => {
   console.log("Server is running on port http://localhost:" + process.env.PORT);
