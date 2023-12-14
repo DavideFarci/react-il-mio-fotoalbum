@@ -12,6 +12,6 @@ router.get("/:id", emailController.show);
 router.post("/", emailController.store);
 
 // DELETE
-router.delete("/", emailController.destroy);
+router.delete("/:id", emailController.destroy);
 
 module.exports = router;
