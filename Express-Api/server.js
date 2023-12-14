@@ -15,6 +15,7 @@ const corsOptions = {
 
 const app = express();
 app.use(cors(corsOptions));
+app.use(express.json());
 
 // Rotte per l'entità photo
 app.use("/photo", photosRouter);
