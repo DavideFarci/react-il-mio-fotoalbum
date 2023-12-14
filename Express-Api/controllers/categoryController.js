@@ -11,7 +11,6 @@ async function index(req, res) {
 // STORE
 async function store(req, res) {
   const data = req.body;
-  log(data);
 
   const newCategory = await prisma.category.create({
     data: {
