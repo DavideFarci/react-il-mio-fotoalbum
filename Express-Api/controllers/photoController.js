@@ -48,7 +48,21 @@ async function index(req, res, next) {
 }
 
 // SHOW
-function show(req, res) {}
+async function show(req, res) {
+  const { id } = req.params;
+  const data = await prisma.photo.findFirst({
+    where: {
+      id: +id,
+    },
+  });
+
+  if (!data) {
+    // next(new PrismaExeption("Il post non è stato trovato", 404));
+    throw new Error("Photo non trovata");
+  }
+
+  return res.json(data);
+}
 
 // STORE
 async function store(req, res) {
