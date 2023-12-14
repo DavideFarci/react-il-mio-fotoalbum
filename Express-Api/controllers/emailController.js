@@ -1,6 +1,7 @@
 const { log } = require("console");
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+const PrismaError = require("../exeptions/prismaExeption");
 
 // INDEX
 async function index(req, res) {
@@ -18,15 +19,14 @@ async function show(req, res) {
   });
 
   if (!data) {
-    // next(new PrismaExeption("Il post non è stato trovato", 404));
-    throw new Error("Messaggio non trovato");
+    next(new PrismaError("Il post non è stato trovato", 404));
   }
 
   return res.json(data);
 }
 
 // STORE
-async function store(req, res) {
+async function store(req, res, next) {
   const data = req.body;
 
   const newMessage = await prisma.email.create({
@@ -37,11 +37,15 @@ async function store(req, res) {
     },
   });
 
+  if (!newMessage) {
+    next(new PrismaError("Dati non corretti", 400));
+  }
+
   return res.json(newMessage);
 }
 
 // DESTROY
-async function destroy(req, res) {
+async function destroy(req, res, next) {
   const { id } = req.params;
 
   // Recupero il messaggio da eliminare
@@ -52,7 +56,7 @@ async function destroy(req, res) {
   });
 
   if (!message) {
-    throw new Error("Messaggio non trovato");
+    next(new PrismaError("Messaggio non trovato", 404));
   }
 
   // Elimino definitivamente il messaggio
@@ -63,8 +67,7 @@ async function destroy(req, res) {
   });
 
   if (!messageToDestroy) {
-    // next(new PrismaExeption("Errore nella cancellazione del post", 500));
-    throw new Error("Errore nella cancellazione");
+    next(new PrismaError("Errore nella cancellazione del post", 500));
   }
 
   res.json({ message: "Messaggio eliminato correttamente!" });

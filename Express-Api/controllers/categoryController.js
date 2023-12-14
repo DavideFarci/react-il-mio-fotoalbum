@@ -1,6 +1,7 @@
 const { log } = require("console");
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+const PrismaError = require("../exeptions/prismaExeption");
 
 // INDEX
 async function index(req, res) {
@@ -22,7 +23,7 @@ async function store(req, res) {
 }
 
 // DESTROY
-async function destroy(req, res) {
+async function destroy(req, res, next) {
   const { id } = req.params;
 
   // Recupero il messaggio da eliminare
@@ -33,7 +34,7 @@ async function destroy(req, res) {
   });
 
   if (!category) {
-    throw new Error("Categoria non trovata");
+    next(new PrismaError("Categoria non trovata", 404));
   }
 
   // Disconnetto le relazioni con le tabella foto
