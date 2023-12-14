@@ -7,6 +7,6 @@ router.get("/", categoryController.index);
 // STORE
 router.post("/", categoryController.store);
 // DELETE
-router.delete("/", categoryController.destroy);
+router.delete("/:id", categoryController.destroy);
 
 module.exports = router;

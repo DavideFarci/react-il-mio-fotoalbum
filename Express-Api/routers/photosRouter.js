@@ -29,6 +29,6 @@ router.post(
 router.put("/", photoController.update);
 
 // DELETE
-router.delete("/", photoController.destroy);
+router.delete("/:id", photoController.destroy);
 
 module.exports = router;
