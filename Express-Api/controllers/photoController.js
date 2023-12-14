@@ -103,10 +103,103 @@ async function store(req, res) {
 }
 
 // UPDATE
-function update(req, res) {}
+async function update(req, res) {
+  const { id } = req.params;
+  const file = req.file;
+  // const photoToUpdate = req.validateData;
+  const photoToUpdate = req.body;
+
+  if (file) {
+    photoToUpdate.image = file.filename;
+  }
+
+  const photo = await prisma.photo.findUnique({
+    where: {
+      id: +id,
+    },
+  });
+  if (!photo) {
+    next(new PrismaExeption("Photo non trovato"));
+  }
+
+  const list = await prisma.photo.findMany();
+  if (!list) {
+    next(
+      new PrismaExeption("Non è stato possibile verificare i duplicati", 500)
+    );
+  }
+
+  const photoUpdated = await prisma.photo.update({
+    where: {
+      id: +id,
+    },
+    data: {
+      title: photoToUpdate.title,
+      image: photoToUpdate.image,
+      description: photoToUpdate.description,
+      visible: photoToUpdate.visible == "true",
+      categories: {
+        connect: photoToUpdate.categories
+          ? photoToUpdate.categories.map((categId) => ({ id: +categId }))
+          : [],
+      },
+    },
+    include: {
+      categories: {
+        select: {
+          name: true,
+        },
+      },
+    },
+  });
+
+  if (!photoUpdated) {
+    next(new PrismaExeption("Errore nella modifica della foto", 401));
+  }
+
+  res.json({
+    message: `La foto ${photoToUpdate.title} è stata modificata:`,
+    photoUpdated,
+  });
+}
 
 // DESTROY
-function destroy(req, res) {}
+async function destroy(req, res) {
+  const { id } = req.params;
+
+  // Recupero la foto da eliminare
+  const photo = await prisma.photo.findUnique({
+    where: {
+      id: +id,
+    },
+  });
+
+  // Disconnetto le relazioni con la tabella categorie
+  await prisma.photo.update({
+    where: {
+      id: +id,
+    },
+    data: {
+      categories: {
+        disconnect: photo.categories?.map((categId) => ({ id: categId })),
+      },
+    },
+  });
+
+  // Elimino definitivamente la foto
+  const photoToDestroy = await prisma.post.delete({
+    where: {
+      id: +id,
+    },
+  });
+
+  if (!photoToDestroy) {
+    // next(new PrismaExeption("Errore nella cancellazione del post", 500));
+    throw new Error("Errore nella cancellazione");
+  }
+
+  res.json({ message: "Foto eliminata correttamente!" });
+}
 
 module.exports = {
   index,
