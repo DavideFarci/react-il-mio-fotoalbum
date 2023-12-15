@@ -7,33 +7,38 @@ const jsonwebToken = require("jsonwebtoken");
 const authError = require("../../exeptions/authError");
 
 // LOGIN
-async function login(req, res) {
+async function login(req, res, next) {
   // recuperare i dati inseriti dall'utente
   const { email, password } = req.body;
-  //controllare che ci sia un utente con quell'email
-  const user = await prisma.user.findUnique({
-    where: {
-      email,
-    },
-  });
-  if (!user) {
-    // next(new PrismaExeption("Utente non trovato"));
-    throw new authError("Utente non trovato");
+  try {
+    //controllare che ci sia un utente con quell'email
+    const user = await prisma.user.findUnique({
+      where: {
+        email,
+      },
+    });
+    if (!user) {
+      next(new PrismaExeption("Utente non trovato"));
+
+      // throw new authError("Utente non trovato");
+    }
+    // controllare che la password sia corretta
+    const passMatch = await bcrypt.compare(password, user.password);
+    if (!passMatch) {
+      // next(new PrismaClient("Password errata"));
+      throw new authError("Password errata");
+    }
+    // generare il token JWT
+    const token = jsonwebToken.sign(user, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
+    // Rimuovere la password dai dati dell'utente
+    delete user.password;
+    // restutuire il token e i dati dell'utente
+    res.json({ user, token });
+  } catch (error) {
+    next(new authError(error.message));
   }
-  // controllare che la password sia corretta
-  const passMatch = await bcrypt.compare(password, user.password);
-  if (!passMatch) {
-    // next(new PrismaClient("Password errata"));
-    throw new authError("Password errata");
-  }
-  // generare il token JWT
-  const token = jsonwebToken.sign(user, process.env.JWT_SECRET, {
-    expiresIn: "1h",
-  });
-  // Rimuovere la password dai dati dell'utente
-  delete user.password;
-  // restutuire il token e i dati dell'utente
-  res.json({ user, token });
 }
 
 // ME

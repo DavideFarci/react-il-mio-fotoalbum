@@ -1,15 +1,19 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from 'react';
 import { createContext, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { fetchApi } from '../utilities/fetchApi';
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [token, setToken] = useState(null);
+  const [token, setToken] = useState(
+    () => localStorage.getItem('token') || null,
+  );
   const [isLogged, setIsLogged] = useState(false);
   const [initComplete, setInitComplete] = useState(false);
+  const navigate = useNavigate();
 
   /**
    * Dopo che l'utente si è loggato,
@@ -23,6 +27,18 @@ export function AuthProvider({ children }) {
     setIsLogged(true);
 
     saveToken(resp.token);
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+    saveToken(null);
+
+    localStorage.removeItem('token');
+    setIsLogged(false);
+
+    setTimeout(() => {
+      navigate('/');
+    });
   };
 
   // Funz. per salvare il token sia in uno state che nella localstorage
@@ -51,7 +67,9 @@ export function AuthProvider({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, isLogged, initComplete, handleLogin }}>
+    <AuthContext.Provider
+      value={{ user, isLogged, initComplete, handleLogin, handleLogout }}
+    >
       {children}
     </AuthContext.Provider>
   );

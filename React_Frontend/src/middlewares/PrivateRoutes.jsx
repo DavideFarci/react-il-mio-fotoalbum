@@ -7,20 +7,20 @@ const PrivateRoutes = ({ children }) => {
   const { isLogged, initComplete } = useAuth();
   const navigate = useNavigate();
 
-  console.log('render PrivateRoutes');
+  // console.log('render PrivateRoutes');
 
   useEffect(() => {
     // Prima di ritornare i children, controllo se l'utente è loggato
     // e se non lo è, lo reindirizzo alla pagina di login
     if (!isLogged && initComplete) {
-      console.log('render PrivateRoutes useEffect');
+      // console.log('render PrivateRoutes useEffect');
 
       // return <Navigate to="/login" />;
       navigate('/login');
     }
-  }, [initComplete]);
+  }, [initComplete, isLogged, navigate]);
 
-  return <>{initComplete && children}</>;
+  return <>{isLogged && initComplete && children}</>;
 };
 
 export default PrivateRoutes;
