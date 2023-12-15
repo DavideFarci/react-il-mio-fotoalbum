@@ -1,3 +1,5 @@
+import { NavLink } from 'react-router-dom';
+
 const Header = () => {
   return (
     <header className="flex h-20 items-center  justify-between bg-green-700 px-2">
@@ -5,7 +7,9 @@ const Header = () => {
       <nav>
         <ul className="flex items-center gap-3 ">
           <li>Home</li>
-          <li>Login</li>
+          <li>
+            <NavLink to={'/login'}>Login</NavLink>
+          </li>
         </ul>
       </nav>
     </header>
