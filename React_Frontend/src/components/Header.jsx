@@ -12,9 +12,7 @@ const Header = () => {
           <li>
             <NavLink to={'/'}>Home</NavLink>
           </li>
-          <li>
-            <NavLink to={'/login'}>Login</NavLink>
-          </li>
+          <li>{!isLogged && <NavLink to={'/login'}>Login</NavLink>}</li>
           <li>{isLogged && <button onClick={handleLogout}>Logout</button>}</li>
         </ul>
       </nav>
