@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const emailController = require("../controllers/emailController");
+const emailController = require("../../controllers/admin/emailController");
 
 // INDEX
 router.get("/", emailController.index);

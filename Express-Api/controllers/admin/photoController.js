@@ -1,7 +1,7 @@
 const { log } = require("console");
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
-const PrismaError = require("../exeptions/prismaExeption");
+const PrismaError = require("../../exeptions/prismaExeption");
 
 // INDEX
 async function index(req, res, next) {
@@ -38,6 +38,7 @@ async function index(req, res, next) {
   });
   if (!data) {
     next(new PrismaError("Qualcosa è andato storto, riprova", 500));
+    return;
   }
 
   // return res.json(data, total, page, perPage);
@@ -58,6 +59,7 @@ async function show(req, res, next) {
 
   if (!data) {
     next(new PrismaError("Il post non è stato trovato", 404));
+    return;
   }
 
   return res.json(data);
@@ -96,6 +98,7 @@ async function store(req, res, next) {
 
   if (!newPhoto) {
     next(new PrismaError("Errore nella creazione del post", 400));
+    return;
   }
 
   return res.json(newPhoto);
@@ -118,6 +121,7 @@ async function update(req, res, next) {
   });
   if (!photo) {
     next(new PrismaError("Foto non trovata", 404));
+    return;
   }
 
   const photoUpdated = await prisma.photo.update({
@@ -146,6 +150,7 @@ async function update(req, res, next) {
 
   if (!photoUpdated) {
     next(new PrismaExeption("Errore nella modifica della foto", 401));
+    return;
   }
 
   res.json({
@@ -186,6 +191,7 @@ async function destroy(req, res, next) {
 
   if (!photoToDestroy) {
     next(new PrismaError("Errore nella cancellazione del post", 500));
+    return;
   }
 
   res.json({ message: "Foto eliminata correttamente!" });

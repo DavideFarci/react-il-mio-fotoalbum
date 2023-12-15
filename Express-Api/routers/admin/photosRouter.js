@@ -2,9 +2,10 @@ const express = require("express");
 const router = express.Router();
 const multer = require("multer");
 const { checkSchema } = require("express-validator");
-const schemaValidator = require("../middlewares/schemaValidator");
-const photoController = require("../controllers/photoController");
-const photoCreateUpdate = require("../validations/photoCreateUpdate");
+const schemaValidator = require("../../middlewares/schemaValidator");
+const photoController = require("../../controllers/admin/photoController");
+const photoCreateUpdate = require("../../validations/photoCreateUpdate");
+const authHandler = require("../../middlewares/authHandler");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -16,14 +17,15 @@ const storage = multer.diskStorage({
 });
 
 // INDEX
-router.get("/", photoController.index);
+router.get("/", authHandler, photoController.index);
 
 // SHOW
-router.get("/:id", photoController.show);
+router.get("/:id", authHandler, photoController.show);
 
 // STORE
 router.post(
   "/",
+  authHandler,
   multer({ storage: storage }).single("image"),
   checkSchema(photoCreateUpdate),
   schemaValidator.checkValidity,
@@ -33,6 +35,7 @@ router.post(
 // UPDATE
 router.put(
   "/:id",
+  authHandler,
   multer({ storage: storage }).single("image"),
   checkSchema(photoCreateUpdate),
   schemaValidator.checkValidity,
@@ -40,6 +43,6 @@ router.put(
 );
 
 // DELETE
-router.delete("/:id", photoController.destroy);
+router.delete("/:id", authHandler, photoController.destroy);
 
 module.exports = router;

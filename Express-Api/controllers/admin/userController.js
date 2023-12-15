@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 // const { matchedData } = require("express-validator");
 const bcrypt = require("bcrypt");
 const jsonwebToken = require("jsonwebtoken");
-const authError = require("../exeptions/authError");
+const authError = require("../../exeptions/authError");
 
 // LOGIN
 async function login(req, res) {

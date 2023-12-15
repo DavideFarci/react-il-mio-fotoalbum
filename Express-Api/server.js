@@ -3,11 +3,12 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 dotenv.config();
 // Routers import
-const photosRouter = require("./routers/photosRouter");
-const categoriesRouter = require("./routers/categoriesRouter");
-const emailRouter = require("./routers/emailRouter");
+const photosRouter = require("./routers/admin/photosRouter");
+const photosRouterGuest = require("./routers/guest/photoRouterGuest");
+const categoriesRouter = require("./routers/admin/categoriesRouter");
+const emailRouter = require("./routers/admin/emailRouter");
 const routeNotFoundMiddlware = require("./middlewares/routeNotFound");
-const usersRouter = require("./routers/usersRouter");
+const usersRouter = require("./routers/admin/usersRouter");
 
 const corsOptions = {
   origin: "http://localhost:5173",
@@ -20,8 +21,10 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.static("public"));
 
-// Rotte per l'entità photo
-app.use("/photo", photosRouter);
+// Rotte per l'entità photo ADMIN
+app.use("/admin/photo", photosRouter);
+// Rotte per l'entità photo GUEST
+app.use("/photo", photosRouterGuest);
 // Rotte per l'entità categorie
 app.use("/categories", categoriesRouter);
 // Rotte per l'entità messaggi

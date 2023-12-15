@@ -1,7 +1,7 @@
 const { log } = require("console");
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
-const PrismaError = require("../exeptions/prismaExeption");
+const PrismaError = require("../../exeptions/prismaExeption");
 
 // INDEX
 async function index(req, res) {
@@ -35,6 +35,7 @@ async function destroy(req, res, next) {
 
   if (!category) {
     next(new PrismaError("Categoria non trovata", 404));
+    return;
   }
 
   // Disconnetto le relazioni con le tabella foto

@@ -15,17 +15,10 @@ module.exports = function (err, req, res, next) {
 function sendRes(err, res) {
   const status = err.status || 500;
 
-  res.format({
-    json: () => {
-      res.status(status).json({
-        message: "Qualcosa è andato storto",
-        error: err.message,
-        errorInstace: err.name,
-      });
-    },
-    default: () => {
-      res.status(status).send("<h1>Qualcosa è andato storto</h1>");
-    },
+  res.status(status).json({
+    message: "Qualcosa è andato storto",
+    error: err.message,
+    errorInstace: err.name,
   });
 }
 
