@@ -4,11 +4,13 @@ const cors = require("cors");
 dotenv.config();
 // Routers import
 const photosRouter = require("./routers/admin/photosRouter");
-const photosRouterGuest = require("./routers/guest/photoRouterGuest");
 const categoriesRouter = require("./routers/admin/categoriesRouter");
 const emailRouter = require("./routers/admin/emailRouter");
-const routeNotFoundMiddlware = require("./middlewares/routeNotFound");
 const usersRouter = require("./routers/admin/usersRouter");
+const photosRouterGuest = require("./routers/guest/photoRouterGuest");
+
+// Middlewares import
+const routeNotFoundMiddlware = require("./middlewares/routeNotFound");
 
 const corsOptions = {
   origin: "http://localhost:5173",
