@@ -1,6 +1,6 @@
 const Header = () => {
   return (
-    <header className="h-20 bg-green-700 px-2 flex justify-between items-center">
+    <header className="flex h-20 items-center  justify-between bg-green-700 px-2">
       <h1 className="text-2xl font-bold">FotoBlog</h1>
       <nav>
         <ul className="flex items-center gap-3 ">
