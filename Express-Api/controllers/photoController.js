@@ -65,7 +65,8 @@ async function show(req, res, next) {
 
 // STORE
 async function store(req, res, next) {
-  const photoToCreate = req.body;
+  const photoToCreate = req.validateData;
+  // const photoToCreate = req.body;
   log(photoToCreate);
   const file = req.file;
   if (file) {
@@ -104,8 +105,7 @@ async function store(req, res, next) {
 async function update(req, res, next) {
   const { id } = req.params;
   const file = req.file;
-  // const photoToUpdate = req.validateData;
-  const photoToUpdate = req.body;
+  const photoToUpdate = req.validateData;
 
   if (file) {
     photoToUpdate.image = file.filename;
@@ -118,13 +118,6 @@ async function update(req, res, next) {
   });
   if (!photo) {
     next(new PrismaError("Foto non trovata", 404));
-  }
-
-  const list = await prisma.photo.findMany();
-  if (!list) {
-    next(
-      new PrismaExeption("Non è stato possibile verificare i duplicati", 500)
-    );
   }
 
   const photoUpdated = await prisma.photo.update({

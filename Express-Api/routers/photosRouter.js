@@ -1,7 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const multer = require("multer");
+const { checkSchema } = require("express-validator");
+const schemaValidator = require("../middlewares/schemaValidator");
 const photoController = require("../controllers/photoController");
+const photoCreateUpdate = require("../validations/photoCreateUpdate");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -22,11 +25,19 @@ router.get("/:id", photoController.show);
 router.post(
   "/",
   multer({ storage: storage }).single("image"),
+  checkSchema(photoCreateUpdate),
+  schemaValidator.checkValidity,
   photoController.store
 );
 
 // UPDATE
-router.put("/", photoController.update);
+router.put(
+  "/:id",
+  multer({ storage: storage }).single("image"),
+  checkSchema(photoCreateUpdate),
+  schemaValidator.checkValidity,
+  photoController.update
+);
 
 // DELETE
 router.delete("/:id", photoController.destroy);

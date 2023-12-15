@@ -1,16 +1,15 @@
 const express = require("express");
 const router = express.Router();
 const userController = require("../controllers/userController");
-// const { checkSchema } = require("express-validator");
-// const userRegister = require("../validations/userRegister");
-// const { checkValidity } = require("../middlwares/schemaValidator");
-// const userLogin = require("../validations/userLogin");
+const { checkSchema } = require("express-validator");
+const schemaValidator = require("../middlewares/schemaValidator");
+const userLogin = require("../validations/userLogin");
 // const authHandler = require("../middlwares/authHandler");
 
 router.post(
   "/login",
-  //   checkSchema(userLogin),
-  //   checkValidity,
+  checkSchema(userLogin),
+  schemaValidator.checkValidity,
   userController.login
 );
 
