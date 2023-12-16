@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
 const Header = () => {
@@ -10,10 +10,15 @@ const Header = () => {
       <nav>
         <ul className="flex items-center gap-3 ">
           <li>
-            <NavLink to={'/'}>Home</NavLink>
+            <Link to={'/'}>{isLogged ? 'Dashboard' : 'Home'}</Link>
           </li>
-          <li>{!isLogged && <NavLink to={'/login'}>Login</NavLink>}</li>
-          <li>{isLogged && <button onClick={handleLogout}>Logout</button>}</li>
+          <li>
+            {!isLogged ? (
+              <Link to={'/login'}>Login</Link>
+            ) : (
+              <button onClick={handleLogout}>Logout</button>
+            )}
+          </li>
         </ul>
       </nav>
     </header>
