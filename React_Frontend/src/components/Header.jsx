@@ -5,7 +5,7 @@ const Header = () => {
   const { isLogged, handleLogout } = useAuth();
 
   return (
-    <header className="fixed left-0 right-0  top-0 flex h-20 items-center justify-between bg-green-700 px-2">
+    <header className="fixed left-0 right-0  top-0 flex h-20 items-center justify-between bg-red-700 px-4">
       <h1 className="text-2xl font-bold">FotoBlog</h1>
       <nav>
         <ul className="flex items-center gap-3 ">
