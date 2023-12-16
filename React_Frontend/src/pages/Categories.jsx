@@ -21,6 +21,11 @@ const Categories = () => {
     getCategories();
   };
 
+  const deleteCategory = async (id) => {
+    await axios.delete(`http://localhost:5174/categories/${id}`);
+    getCategories();
+  };
+
   useEffect(() => {
     getCategories();
   }, []);
@@ -40,9 +45,15 @@ const Categories = () => {
         {categories.map((categ) => (
           <span
             key={categ.id}
-            className="mb-3 mr-3 inline-block rounded-full bg-red-900 px-4 py-1 text-sm"
+            className="group relative mb-3 mr-3 inline-block rounded-full bg-red-900 px-4 py-1 text-sm"
           >
             {categ.name}
+            <span
+              onClick={() => deleteCategory(categ.id)}
+              className="pointer-events-none absolute right-[-5px] top-[-5px] opacity-0 hover:cursor-pointer hover:opacity-100 group-hover:pointer-events-auto group-hover:opacity-100"
+            >
+              <i className="fa-regular fa-circle-xmark text-xl"></i>
+            </span>
           </span>
         ))}
       </div>

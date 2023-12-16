@@ -30,6 +30,7 @@ const CreateCategory = ({ onSave }) => {
             type="text"
             name="name"
             id="name"
+            value={newCategory.name}
             onChange={(e) => setNewCategory({ name: e.target.value })}
             className="max-w-lg rounded-md p-1 text-black shadow-md"
           />
