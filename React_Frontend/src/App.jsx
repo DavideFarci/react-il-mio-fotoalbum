@@ -8,6 +8,7 @@ import PrivateRoutes from './middlewares/PrivateRoutes';
 import Dashboard from './pages/Dashboard';
 import Categories from './pages/Categories';
 import Messages from './pages/Messages';
+import PhotosList from './components/PhotosList';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
               }
             >
               <Route path="/dashboard" element={<Dashboard />}></Route>
+              <Route path="/photos" element={<PhotosList />}></Route>
               <Route path="/categories" element={<Categories />}></Route>
               <Route path="/messages" element={<Messages />}></Route>
             </Route>

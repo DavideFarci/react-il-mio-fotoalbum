@@ -14,7 +14,9 @@ const Sidebar = () => {
     >
       <ul className="h-full">
         <li className="flex h-1/3 items-center justify-center hover:bg-slate-600">
-          FOTO
+          <NavLink to={'/photos'} className={'text-2xl'}>
+            FOTO
+          </NavLink>
         </li>
         <li className="flex h-1/3 items-center justify-center hover:bg-slate-600">
           <NavLink to={'/categories'} className={'text-2xl'}>
