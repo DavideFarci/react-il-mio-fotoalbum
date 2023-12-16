@@ -4,14 +4,17 @@ import { useState } from 'react';
 const CreateCategory = ({ onSave }) => {
   const [newCategory, setNewCategory] = useState({ name: '' });
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      onSave(newCategory);
+      await onSave(newCategory);
     } catch (error) {
       console.log(error);
     }
+
+    // NON SVUOTA IL FORM
+    setNewCategory({ name: '' });
   };
 
   return (
