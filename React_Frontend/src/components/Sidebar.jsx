@@ -10,21 +10,36 @@ const Sidebar = () => {
   return (
     <aside
       style={calculatedHeight}
-      className="fixed bottom-0 right-0 w-1/4 bg-slate-800  p-3 text-right"
+      className="fixed bottom-0 right-0 w-1/4 bg-red-800/50  p-3 text-right"
     >
       <ul className="h-full">
-        <li className="flex h-1/3 items-center justify-center hover:bg-slate-600">
-          <NavLink to={'/photos'} className={'text-2xl'}>
+        <li className="h-1/3 rounded-md hover:bg-red-600">
+          <NavLink
+            to={'/photos'}
+            className={
+              'flex h-full w-full items-center justify-center text-2xl'
+            }
+          >
             FOTO
           </NavLink>
         </li>
-        <li className="flex h-1/3 items-center justify-center hover:bg-slate-600">
-          <NavLink to={'/categories'} className={'text-2xl'}>
+        <li className="h-1/3 rounded-md hover:bg-red-600">
+          <NavLink
+            to={'/categories'}
+            className={
+              'flex h-full w-full items-center justify-center text-2xl'
+            }
+          >
             CATEGORIE
           </NavLink>
         </li>
-        <li className="flex h-1/3 items-center justify-center hover:bg-slate-600">
-          <NavLink to={'/messages'} className={'text-2xl'}>
+        <li className="h-1/3 rounded-md hover:bg-red-600">
+          <NavLink
+            to={'/messages'}
+            className={
+              'flex h-full w-full items-center justify-center text-2xl'
+            }
+          >
             MESSAGGI
           </NavLink>
         </li>
