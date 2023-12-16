@@ -8,7 +8,7 @@ import PrivateRoutes from './middlewares/PrivateRoutes';
 import Dashboard from './pages/Dashboard';
 import Categories from './pages/Categories';
 import Messages from './pages/Messages';
-import PhotosList from './components/PhotosList';
+import PhotosList from './components/photos/PhotosList';
 
 function App() {
   return (
