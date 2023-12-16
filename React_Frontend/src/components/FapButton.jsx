@@ -3,7 +3,7 @@ const FapButton = ({ openOverlay }) => {
   return (
     <button
       title="Nuovo Post"
-      className="group fixed bottom-6 right-6 cursor-pointer outline-none duration-300 hover:rotate-90"
+      className="group fixed bottom-6 left-6 cursor-pointer outline-none duration-300 hover:rotate-90"
       onClick={openOverlay}
     >
       <svg

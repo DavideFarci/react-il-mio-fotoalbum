@@ -15,8 +15,8 @@ const DefaultLayout = () => {
         className="fixed bottom-0 w-3/4 overflow-auto"
       >
         <Outlet></Outlet>
+        <Sidebar></Sidebar>
       </main>
-      <Sidebar></Sidebar>
     </>
   );
 };

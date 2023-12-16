@@ -139,7 +139,7 @@ const PostCreateOverlay = ({ show, onClosing, photoToEdit, onSave, isNew }) => {
       onClick={onClosing}
     >
       <div
-        className="absolute left-48 top-40 z-[60] flex w-2/3 flex-col items-center rounded-md border-2 border-green-700 bg-green-600 p-3 shadow-2xl shadow-slate-800"
+        className="absolute left-48 top-40 z-50 flex w-2/3 flex-col items-center rounded-md border-2 border-green-700 bg-green-600 p-3 shadow-2xl shadow-slate-800"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Bottone di chiusura  */}
