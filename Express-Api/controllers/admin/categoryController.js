@@ -49,6 +49,19 @@ async function destroy(req, res, next) {
       },
     },
   });
+
+  // Elimino la categoria
+  const deletedCategory = await prisma.category.delete({
+    where: {
+      id: +id,
+    },
+  });
+
+  if (!deletedCategory) {
+    next(new PrismaError("Errore nella cancellazione della categoria", 500));
+    return;
+  }
+  res.json({ message: "Categoria eliminata correttamente!" });
 }
 
 module.exports = {
