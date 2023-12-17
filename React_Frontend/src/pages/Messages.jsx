@@ -50,7 +50,7 @@ const Messages = () => {
               >
                 <th
                   scope="row"
-                  className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
+                  className="font-mediumtext-white block max-w-[500px] overflow-hidden text-ellipsis whitespace-nowrap px-6 py-4"
                 >
                   {mess.message}
                 </th>
