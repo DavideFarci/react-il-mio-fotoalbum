@@ -14,17 +14,21 @@ module.exports = (req, res, next) => {
 
   // Verifico se è presente e se valido
   if (!bearer || !bearer.startsWith("Bearer ")) {
-    throw new AuthError("Token mancante o danneggiato");
+    return next(new AuthError("Token mancante o danneggiato"));
   }
 
   // Se lo è estraggo il token
   const token = bearer.split(" ")[1];
 
   // Verifico la validità del token (il verify ritorna il payload del token e quindi i dati dell'utente) e salvo i dati dell'utente.
-  const user = jsonwebtoken.verify(token, process.env.JWT_SECRET);
+  try {
+    const user = jsonwebtoken.verify(token, process.env.JWT_SECRET);
 
-  // Passo i dati dell'utente alla richiesta
-  req["user"] = user;
+    // Passo i dati dell'utente alla richiesta
+    req["user"] = user;
+  } catch (error) {
+    return next(new AuthError(error.message));
+  }
 
   next();
 };
