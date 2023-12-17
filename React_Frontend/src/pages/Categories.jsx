@@ -1,28 +1,36 @@
-import axios from 'axios';
+// import axios from 'axios';
 import { useEffect, useState } from 'react';
 import CreateCategory from '../components/categories/createCategory';
+import { fetchApi } from '../utilities/fetchApi';
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
 
   const getCategories = async () => {
-    const resp = await axios.get('http://localhost:5174/categories');
-
-    setCategories(resp.data);
+    try {
+      const resp = await fetchApi('/categories');
+      setCategories(resp);
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   const addNewCategory = async (newCategory) => {
-    await axios.post('http://localhost:5174/categories', newCategory, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    try {
+      await fetchApi('/categories', 'POST', newCategory);
+    } catch (error) {
+      console.log(error.message);
+    }
 
     getCategories();
   };
 
   const deleteCategory = async (id) => {
-    await axios.delete(`http://localhost:5174/categories/${id}`);
+    try {
+      await fetchApi(`/categories/${id}`, 'DELETE');
+    } catch (error) {
+      console.log(error.message);
+    }
     getCategories();
   };
 

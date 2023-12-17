@@ -1,19 +1,30 @@
-import axios from 'axios';
+// import axios from 'axios';
 import { useEffect, useState } from 'react';
 import ShowMessage from '../components/messages/ShowMessage';
+import { fetchApi } from '../utilities/fetchApi';
 
 const Messages = () => {
   const [messages, setMessages] = useState([]);
   const [show, setShow] = useState(false);
 
   const getMessages = async () => {
-    const _messages = await axios.get('http://localhost:5174/email');
-    setMessages(_messages.data);
+    // const _messages = await axios.get('http://localhost:5174/email');
+    try {
+      const _messages = await fetchApi('/email');
+      setMessages(_messages);
+    } catch (error) {
+      console.log(error.messages);
+    }
   };
 
   const deleteMessage = async (id) => {
-    await axios.delete(`http://localhost:5174/email/${id}`);
-    getMessages();
+    // await axios.delete(`http://localhost:5174/email/${id}`);
+    try {
+      await fetchApi(`/email/${id}`, 'DELETE');
+      getMessages();
+    } catch (error) {
+      console.log(error.messages);
+    }
   };
 
   useEffect(() => {

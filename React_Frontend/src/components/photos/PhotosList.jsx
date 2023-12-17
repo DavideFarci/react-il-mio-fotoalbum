@@ -4,6 +4,7 @@ import PhotoCreateOverlay from './PhotoCreateOverlay';
 import FapButton from './FapButton';
 import Photo from './Photo';
 import axios from 'axios';
+import { fetchApi } from '../../utilities/fetchApi';
 
 const initialData = {
   title: '',
@@ -20,8 +21,12 @@ const PhotosList = () => {
   const [isNew, setIsNew] = useState(true);
 
   async function getPhotos() {
-    const data = await (await fetch('http://localhost:5174/photo')).json();
-    setPhotos(data.data);
+    try {
+      const resp = await fetchApi('/admin/photo');
+      setPhotos(resp.data);
+    } catch (error) {
+      console.log(error.message);
+    }
   }
 
   const handleSelectedPhoto = (photo) => {
@@ -39,18 +44,23 @@ const PhotosList = () => {
   const savePhoto = async (payload) => {
     console.log(payload);
     if (isNew) {
-      await axios.post('http://localhost:5174/photo', payload, {
+      await axios.post('http://localhost:5174/admin/photo', payload, {
         headers: {
           'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       });
     } else {
       // await axios.put(`http://localhost:5174/photo/${payload.slug}`, payload);
-      await axios.put(`http://localhost:5174/photo/${payload.id}`, payload, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
+      await axios.put(
+        `http://localhost:5174/admin/photo/${payload.id}`,
+        payload,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
         },
-      });
+      );
     }
 
     getPhotos();
