@@ -40,7 +40,7 @@ const Categories = () => {
       </div>
       <div className="px-2">
         <h3 className="py-8 text-center text-2xl font-bold">
-          Lista delle Categorie
+          Le Tue Categorie
         </h3>
         {categories.map((categ) => (
           <span
