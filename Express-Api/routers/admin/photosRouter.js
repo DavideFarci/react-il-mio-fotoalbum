@@ -6,6 +6,7 @@ const schemaValidator = require("../../middlewares/schemaValidator");
 const photoController = require("../../controllers/admin/photoController");
 const photoCreateUpdate = require("../../validations/photoCreateUpdate");
 const authHandler = require("../../middlewares/authHandler");
+const photoUpdate = require("../../validations/photoUpdate");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -37,7 +38,7 @@ router.put(
   "/:id",
   authHandler,
   multer({ storage: storage }).single("image"),
-  checkSchema(photoCreateUpdate),
+  checkSchema(photoUpdate),
   schemaValidator.checkValidity,
   photoController.update
 );

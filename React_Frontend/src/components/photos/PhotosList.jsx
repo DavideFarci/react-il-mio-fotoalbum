@@ -53,11 +53,12 @@ const PhotosList = () => {
     } else {
       // await axios.put(`http://localhost:5174/photo/${payload.slug}`, payload);
       await axios.put(
-        `http://localhost:5174/admin/photo/${payload.id}`,
+        `http://localhost:5174/admin/photo/${photoSelected.id}`,
         payload,
         {
           headers: {
             'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
         },
       );
@@ -86,7 +87,7 @@ const PhotosList = () => {
       <PhotoCreateOverlay
         onClosing={handleClosing}
         show={show}
-        PhotoToEdit={photoSelected}
+        photoToEdit={photoSelected}
         onSave={savePhoto}
         isNew={isNew}
       />

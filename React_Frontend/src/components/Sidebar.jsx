@@ -15,7 +15,7 @@ const Sidebar = () => {
       <ul className="h-full">
         <li className="h-1/3 rounded-md hover:bg-red-600">
           <NavLink
-            to={'/photos'}
+            to={'/admin/photos'}
             className={
               'flex h-full w-full items-center justify-center text-2xl'
             }
@@ -25,7 +25,7 @@ const Sidebar = () => {
         </li>
         <li className="h-1/3 rounded-md hover:bg-red-600">
           <NavLink
-            to={'/categories'}
+            to={'/admin/categories'}
             className={
               'flex h-full w-full items-center justify-center text-2xl'
             }
@@ -35,7 +35,7 @@ const Sidebar = () => {
         </li>
         <li className="h-1/3 rounded-md hover:bg-red-600">
           <NavLink
-            to={'/messages'}
+            to={'/admin/messages'}
             className={
               'flex h-full w-full items-center justify-center text-2xl'
             }

@@ -20,8 +20,8 @@ module.exports = (req, res, next) => {
   // Se lo è estraggo il token
   const token = bearer.split(" ")[1];
 
-  // Verifico la validità del token (il verify ritorna il payload del token e quindi i dati dell'utente) e salvo i dati dell'utente.
   try {
+    // Verifico la validità del token (il verify ritorna il payload del token e quindi i dati dell'utente) e salvo i dati dell'utente.
     const user = jsonwebtoken.verify(token, process.env.JWT_SECRET);
 
     // Passo i dati dell'utente alla richiesta

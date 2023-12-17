@@ -37,9 +37,9 @@ function App() {
               }
             >
               <Route path="/dashboard" element={<Dashboard />}></Route>
-              <Route path="/photos" element={<PhotosList />}></Route>
-              <Route path="/categories" element={<Categories />}></Route>
-              <Route path="/messages" element={<Messages />}></Route>
+              <Route path="/admin/photos" element={<PhotosList />}></Route>
+              <Route path="/admin/categories" element={<Categories />}></Route>
+              <Route path="/admin/messages" element={<Messages />}></Route>
             </Route>
           </Routes>
         </AuthProvider>

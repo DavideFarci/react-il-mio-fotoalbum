@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from 'react';
+import { fetchApi } from '../../utilities/fetchApi';
 
 const initialData = {
   title: '',
@@ -19,10 +20,8 @@ const PostCreateOverlay = ({ show, onClosing, photoToEdit, onSave, isNew }) => {
   // Methods
   const getCategories = async () => {
     try {
-      const respCategories = await fetch('http://localhost:5174/categories');
-      const dataCategories = await respCategories.json();
-
-      setCategories(dataCategories);
+      const _categories = await fetchApi('/categories');
+      setCategories(_categories);
     } catch (error) {
       console.error('Errore durante il recupero delle categorie:', error);
     }
@@ -98,7 +97,7 @@ const PostCreateOverlay = ({ show, onClosing, photoToEdit, onSave, isNew }) => {
 
     try {
       await onSave(isNew ? formValues : formDataTOSend);
-
+      setFormValues(initialData);
       onClosing();
     } catch (error) {
       console.log(error);
@@ -121,10 +120,10 @@ const PostCreateOverlay = ({ show, onClosing, photoToEdit, onSave, isNew }) => {
   useEffect(() => {
     if (!isNew) {
       setFormValues(photoToEdit);
-      const _selectedCategories = [...photoToEdit.categories].map(
-        (categ) => categ.id,
-      );
-      setSelectedCategories(_selectedCategories);
+      // const _selectedCategories = [...photoToEdit.categories].map(
+      //   (categ) => categ.id,
+      // );
+      // setSelectedCategories(_selectedCategories);
     } else {
       setFormValues(initialData);
       setSelectedCategories([]);
@@ -218,15 +217,15 @@ const PostCreateOverlay = ({ show, onClosing, photoToEdit, onSave, isNew }) => {
                   <label
                     htmlFor={`category-${category.id}`}
                     className={`mr-0.5 inline-block rounded-full align-[3px] text-xs font-semibold duration-75 hover:scale-95 hover:cursor-pointer ${
-                      selectedCategories.includes(category.id)
+                      formValues.categories.includes(category.id)
                         ? 'border-3 border-green-400 bg-green-800'
                         : 'border-3 border-green-800 bg-green-200'
                     }`}
                   >
                     <span
-                      onClick={() => selectCategories(category.id)}
+                      // onClick={() => selectCategories(category.id)}
                       className={`mr-0.5 inline-block px-2 py-0.5 align-[4px] text-sm font-semibold ${
-                        selectedCategories.includes(category.id)
+                        formValues.categories.includes(category.id)
                           ? 'text-white'
                           : 'text-green-800'
                       }`}
