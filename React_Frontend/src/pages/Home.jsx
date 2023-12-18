@@ -31,7 +31,7 @@ const Home = () => {
   return (
     <>
       <h2 className="py-8 text-center text-4xl font-bold">Sono la Home</h2>
-      <div className="mx-auto p-4">
+      <div className="mx-auto mb-8 ml-9 p-4">
         <h3 className="mb-0.5 font-semibold">Filtra per titiolo</h3>
         <input
           type="text"
