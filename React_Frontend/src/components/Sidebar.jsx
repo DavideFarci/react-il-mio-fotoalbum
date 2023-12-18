@@ -21,8 +21,10 @@ const Sidebar = () => {
           <li className="h-1/3 rounded-md hover:bg-red-600">
             <NavLink
               to={'/admin/photos'}
-              className={
-                'flex h-full w-full items-center justify-center text-2xl'
+              className={({ isActive }) =>
+                isActive
+                  ? 'flex h-full w-full items-center justify-center rounded-md bg-red-600 text-2xl'
+                  : 'flex h-full w-full items-center justify-center rounded-md text-2xl'
               }
             >
               FOTO
@@ -31,8 +33,10 @@ const Sidebar = () => {
           <li className="h-1/3 rounded-md hover:bg-red-600">
             <NavLink
               to={'/admin/categories'}
-              className={
-                'flex h-full w-full items-center justify-center text-2xl'
+              className={({ isActive }) =>
+                isActive
+                  ? 'flex h-full w-full items-center justify-center rounded-md bg-red-600 text-2xl'
+                  : 'flex h-full w-full items-center justify-center rounded-md text-2xl'
               }
             >
               CATEGORIE
@@ -41,8 +45,10 @@ const Sidebar = () => {
           <li className="h-1/3 rounded-md hover:bg-red-600">
             <NavLink
               to={'/admin/messages'}
-              className={
-                'flex h-full w-full items-center justify-center text-2xl'
+              className={({ isActive }) =>
+                isActive
+                  ? 'flex h-full w-full items-center justify-center rounded-md bg-red-600 text-2xl'
+                  : 'flex h-full w-full items-center justify-center rounded-md text-2xl'
               }
             >
               MESSAGGI
