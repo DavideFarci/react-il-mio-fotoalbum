@@ -31,17 +31,22 @@ const Home = () => {
   return (
     <>
       <h2 className="py-8 text-center text-4xl font-bold">Sono la Home</h2>
-      <div>
-        <h3>Filtra per titiolo</h3>
+      <div className="mx-auto p-4">
+        <h3 className="mb-0.5 font-semibold">Filtra per titiolo</h3>
         <input
           type="text"
           value={searchStr}
           onChange={(e) => setSearchStr(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              getVisiblesPhotos();
+            }
+          }}
           className="rounded-md p-1 text-black shadow-md"
         />
         <button
           onClick={getVisiblesPhotos}
-          className="bg-red-700 px-4 py-2 duration-150 hover:bg-red-600"
+          className="ml-3 rounded-md bg-red-700 px-4 py-1 shadow-md shadow-red-950 duration-150 hover:bg-red-600"
         >
           Filtra
         </button>
