@@ -140,16 +140,16 @@ const PhotoCreateOverlay = ({
 
   return (
     <div
-      className="fixed inset-0 z-[60] overflow-auto bg-black/60"
+      className="fixed inset-0 z-[60] overflow-auto bg-black/40"
       onClick={onClosing}
     >
       <div
-        className="absolute left-48 top-40 z-50 flex w-2/3 flex-col items-center rounded-md border-2 border-green-700 bg-green-600 p-3 shadow-2xl shadow-slate-800"
+        className="absolute left-48 top-40 z-50 flex w-2/3 flex-col items-center rounded-xl border-2 border-red-900 bg-red-700 p-3 shadow-2xl shadow-slate-800"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Bottone di chiusura  */}
         <div onClick={onClosing} className="self-end text-2xl">
-          <i className="fa-regular fa-circle-xmark text-4xl text-green-800 duration-75 hover:cursor-pointer hover:text-white"></i>
+          <i className="fa-regular fa-circle-xmark text-4xl text-red-800 duration-150 hover:cursor-pointer hover:text-white"></i>
         </div>
 
         <form
@@ -174,7 +174,7 @@ const PhotoCreateOverlay = ({
               id="title"
               value={formValues.title}
               onChange={(e) => handleDataForm(e, 'title')}
-              className="rounded-md p-1 text-black shadow-md"
+              className="rounded-md p-1 text-black shadow-lg"
             />
           </div>
 
@@ -188,7 +188,7 @@ const PhotoCreateOverlay = ({
               name="image"
               accept="image/*"
               onChange={(e) => handleDataForm(e, 'image')}
-              className="rounded-md p-1 text-black shadow-md"
+              className="rounded-md p-1 text-black shadow-lg"
             />
             {formValues.image && (
               <img
@@ -210,7 +210,7 @@ const PhotoCreateOverlay = ({
               rows="5"
               value={formValues.description}
               onChange={(e) => handleDataForm(e, 'description')}
-              className="rounded-md p-1 text-black shadow-md"
+              className="rounded-md p-1 text-black shadow-lg"
             ></textarea>
           </div>
 
@@ -224,8 +224,8 @@ const PhotoCreateOverlay = ({
                     htmlFor={`category-${category.id}`}
                     className={`mr-0.5 inline-block rounded-full align-[3px] text-xs font-semibold duration-75 hover:scale-95 hover:cursor-pointer ${
                       selectedCategories.includes(category.id)
-                        ? 'border-3 border-green-400 bg-green-800'
-                        : 'border-3 border-green-800 bg-green-200'
+                        ? 'border-3 border-red-400 bg-red-800'
+                        : 'border-3 border-red-800 bg-red-200'
                     }`}
                   >
                     <span
@@ -233,7 +233,7 @@ const PhotoCreateOverlay = ({
                       className={`mr-0.5 inline-block px-2 py-0.5 align-[4px] text-sm font-semibold ${
                         selectedCategories.includes(category.id)
                           ? 'text-white'
-                          : 'text-green-800'
+                          : 'text-red-800'
                       }`}
                     >
                       {category.name}
@@ -269,7 +269,7 @@ const PhotoCreateOverlay = ({
 
           <button
             type="submit"
-            className="rounded-full bg-green-800 px-4 py-2 font-semibold shadow-md duration-150 hover:bg-green-900 hover:px-6"
+            className="rounded-full border border-red-600 bg-red-800 px-4 py-2 font-semibold shadow-md duration-150 hover:bg-red-900 hover:px-6"
           >
             {!isNew ? 'Modifica' : 'Crea'}
           </button>
