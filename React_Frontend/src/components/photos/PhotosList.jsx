@@ -5,6 +5,7 @@ import FapButton from './FapButton';
 import Photo from './Photo';
 import axios from 'axios';
 import { fetchApi } from '../../utilities/fetchApi';
+import Show from '../../pages/Photo/Show';
 
 const initialData = {
   title: '',
@@ -18,6 +19,7 @@ const PhotosList = () => {
   const [photo, setPhotos] = useState([]);
   const [photoSelected, setPhotoSelected] = useState(initialData);
   const [show, setShow] = useState(false);
+  const [showFullImg, setShowFullImg] = useState(false);
   const [isNew, setIsNew] = useState(true);
 
   async function getPhotos() {
@@ -35,6 +37,11 @@ const PhotosList = () => {
     setShow(true);
   };
 
+  const showFullImage = (photo) => {
+    setPhotoSelected(photo);
+    setShowFullImg(true);
+  };
+
   const deletePhoto = async (id) => {
     try {
       await fetchApi(`/admin/photo/${id}`, 'DELETE');
@@ -48,6 +55,11 @@ const PhotosList = () => {
   const handleClosing = () => {
     setIsNew(true);
     setShow(false);
+    setPhotoSelected(initialData);
+  };
+
+  const closeShow = () => {
+    setShowFullImg(false);
     setPhotoSelected(initialData);
   };
 
@@ -89,6 +101,7 @@ const PhotosList = () => {
           <Photo
             onSelectedPhoto={handleSelectedPhoto}
             onDeletePhoto={deletePhoto}
+            showFullImg={showFullImage}
             key={photo.id}
             photo={photo}
           />
@@ -102,6 +115,7 @@ const PhotosList = () => {
         onSave={savePhoto}
         isNew={isNew}
       />
+      <Show onClosing={closeShow} show={showFullImg} photo={photoSelected} />
     </div>
   );
 };

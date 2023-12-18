@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 
-const Photo = ({ photo, onSelectedPhoto, onDeletePhoto }) => {
+const Photo = ({ photo, onSelectedPhoto, onDeletePhoto, showFullImg }) => {
   const { id, title, image, description, visible, categories } = photo;
   // console.log(categories);
   return (
@@ -40,6 +40,7 @@ const Photo = ({ photo, onSelectedPhoto, onDeletePhoto }) => {
           className="fa-solid fa-trash-can mr-3 text-red-500 duration-150 hover:scale-125 hover:cursor-pointer"
         ></i>
         <i
+          onClick={() => showFullImg(photo)}
           title="Espandi"
           className="fa-regular fa-eye text-green-500 duration-150 hover:scale-125 hover:cursor-pointer"
         ></i>
