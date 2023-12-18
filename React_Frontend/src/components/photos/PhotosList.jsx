@@ -111,7 +111,10 @@ const PhotosList = () => {
       <PhotoCreateOverlay
         onClosing={handleClosing}
         show={show}
-        photoToEdit={photoSelected}
+        photoToEdit={{
+          ...photoSelected,
+          categories: photoSelected.categories.map((categ) => categ.id),
+        }}
         onSave={savePhoto}
         isNew={isNew}
       />
