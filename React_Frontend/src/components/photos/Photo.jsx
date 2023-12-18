@@ -5,8 +5,12 @@ const Photo = ({ photo, onSelectedPhoto, onDeletePhoto }) => {
   // console.log(categories);
   return (
     <div className="mb-12 ml-12 max-w-2xl rounded-lg bg-red-700/30 p-2">
-      <h4 className="text-xl font-bold">{title}</h4>
-      <img src={`http://localhost:5174/${image}`} alt="" />
+      <h4 className="mb-1 text-xl font-bold  ">{title}</h4>
+      <img
+        src={`http://localhost:5174/${image}`}
+        alt=""
+        className="rounded-lg"
+      />
       <p className="font-semibold">{description}</p>
       <div>
         Visibile{' '}
