@@ -20,7 +20,6 @@ const PhotoCreateOverlay = ({
   // States
   const [categories, setCategories] = useState([]);
   const [formValues, setFormValues] = useState(initialData);
-  // const [selectedCategories, setSelectedCategories] = useState([]);
   const [error, setError] = useState(false);
 
   // Methods
@@ -81,61 +80,22 @@ const PhotoCreateOverlay = ({
     });
   };
 
-  //   ----------------------------------------------------------------------------  VEDI SE RIESCI A ELIMINARE QUESTA FUNZIONE E USARE FORMVALUE
-  // const selectCategories = (categ) => {
-  //   if (selectedCategories.includes(categ)) {
-  //     setSelectedCategories(
-  //       selectedCategories.filter((categId) => categId !== categ),
-  //     );
-  //   } else {
-  //     setSelectedCategories([...selectedCategories, categ]);
-  //   }
-  // };
-
-  // Funzione per inviare i dati e inviarli al server (passata come prop a PostsList)
-  // const handleFormSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   console.log(formValues.categories);
-
-  //   const formDataTOSend = new FormData();
-  //   Object.keys(formValues).forEach((key) => {
-  //     formDataTOSend.append(key, formValues[key]);
-  //   });
-
-  //   // Log per verificare il contenuto di formDataTOSend
-  //   console.log('formDataTOSend:', formDataTOSend);
-
-  //   try {
-  //     await onSave(isNew ? formValues : formDataTOSend);
-  //     setFormValues(initialData);
-  //     onClosing();
-  //   } catch (error) {
-  //     console.log(error.message);
-  //     setError(true);
-  //   }
-  // };
-
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
     const formDataTOSend = new FormData();
 
     Object.keys(formValues).forEach((key) => {
-      // Escludi il campo "categories" dal FormData
+      // Escludo il campo "categories" dal FormData
       if (key !== 'categories') {
         formDataTOSend.append(key, formValues[key]);
       }
     });
 
-    // Aggiungi manualmente i dati delle categorie
+    // Aggiungo manualmente i dati delle categorie
     formValues.categories.forEach((categoryId) => {
       formDataTOSend.append('categories', categoryId);
     });
-
-    // Log per verificare il contenuto di formValues.categories e formDataTOSend
-    console.log('formValues.categories:', formValues.categories);
-    console.log('formDataTOSend:', formDataTOSend);
 
     try {
       await onSave(isNew ? formValues : formDataTOSend);
@@ -162,13 +122,8 @@ const PhotoCreateOverlay = ({
   useEffect(() => {
     if (!isNew) {
       setFormValues(photoToEdit);
-      // const _selectedCategories = [...photoToEdit.categories].map(
-      //   (categ) => categ.id,
-      // );
-      // setSelectedCategories(_selectedCategories);
     } else {
       setFormValues(initialData);
-      // setSelectedCategories([]);
     }
   }, [photoToEdit, isNew]);
 
