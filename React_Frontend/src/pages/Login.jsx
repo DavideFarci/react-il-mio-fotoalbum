@@ -31,9 +31,10 @@ const Login = () => {
   return (
     <form
       onSubmit={onLoginSubmit}
-      className="mx-auto flex max-w-lg flex-col gap-2 py-8"
+      className="mx-auto mt-20 flex max-w-lg flex-col gap-2 rounded-lg border-4 border-red-900 bg-red-800 p-10 shadow-2xl shadow-red-950"
     >
       {error && <div>Errore nel login</div>}
+      <h3 className="pb-5 text-2xl font-bold">Effettua il Login</h3>
       <input
         type="email"
         name="email"
@@ -41,19 +42,24 @@ const Login = () => {
         value={formValues.email}
         onChange={(e) => handleInputChange(e, 'email', setFormValues)}
         placeholder="email"
-        className="p-1 text-black"
+        className="rounded-md p-2 text-black shadow-lg"
       />{' '}
       <br />
       <input
-        type="text"
+        type="password"
         name="password"
         id="password"
         value={formValues.password}
         onChange={(e) => handleInputChange(e, 'password', setFormValues)}
         placeholder="password"
-        className="p-1 text-black"
+        className="rounded-md p-2 text-black shadow-lg"
       />
-      <button type="submit">Invia</button>
+      <button
+        type="submit"
+        className="mt-8 self-center rounded-full border border-red-600 bg-red-800 px-4 py-2 font-semibold shadow-md duration-150 hover:bg-red-900 hover:px-6"
+      >
+        Login
+      </button>
     </form>
   );
 };
