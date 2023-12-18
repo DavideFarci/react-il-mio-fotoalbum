@@ -109,6 +109,7 @@ async function update(req, res, next) {
   const { id } = req.params;
   const file = req.file;
   const photoToUpdate = req.validateData;
+  console.log(photoToUpdate);
 
   if (file) {
     photoToUpdate.image = file.filename;
@@ -183,7 +184,7 @@ async function destroy(req, res, next) {
   });
 
   // Elimino definitivamente la foto
-  const photoToDestroy = await prisma.post.delete({
+  const photoToDestroy = await prisma.photo.delete({
     where: {
       id: +id,
     },

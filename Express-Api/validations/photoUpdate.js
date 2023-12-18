@@ -33,4 +33,8 @@ module.exports = {
     isBoolean: true,
     optional: true,
   },
+  categories: {
+    in: ["body"],
+    optional: true,
+  },
 };

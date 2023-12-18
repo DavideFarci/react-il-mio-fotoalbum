@@ -35,6 +35,16 @@ const PhotosList = () => {
     setShow(true);
   };
 
+  const deletePhoto = async (id) => {
+    try {
+      await fetchApi(`/admin/photo/${id}`, 'DELETE');
+    } catch (error) {
+      console.log(error.message);
+    }
+
+    getPhotos();
+  };
+
   const handleClosing = () => {
     setIsNew(true);
     setShow(false);
@@ -78,6 +88,7 @@ const PhotosList = () => {
         {photo.map((photo) => (
           <Photo
             onSelectedPhoto={handleSelectedPhoto}
+            onDeletePhoto={deletePhoto}
             key={photo.id}
             photo={photo}
           />
