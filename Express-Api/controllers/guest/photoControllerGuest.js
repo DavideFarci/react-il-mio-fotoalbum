@@ -8,19 +8,16 @@ async function index(req, res, next) {
   const filters = {
     visible: true,
   };
-  const { str } = req.query;
+  const { searchStr } = req.query;
   const page = req.query.page || 1;
   const perPage = 100;
 
-  if (str) {
+  if (searchStr) {
     filters.AND = [
       {
         OR: [
           {
-            title: { contains: str },
-          },
-          {
-            description: { contains: str },
+            title: { contains: searchStr },
           },
         ],
       },
@@ -47,13 +44,14 @@ async function index(req, res, next) {
     return;
   }
 
-  return res.json({
-    message: "Lista dei post",
-    data: data,
-    total: total, // Aggiunto il campo total per indicare il numero totale di elementi
-    page: page,
-    perPage: perPage,
-  });
+  // return res.json({
+  //   message: "Lista dei post",
+  //   data: data,
+  //   total: total,
+  //   page: page,
+  //   perPage: perPage,
+  // });
+  return res.json(data);
 }
 
 // SHOW
