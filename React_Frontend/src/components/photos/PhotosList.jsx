@@ -83,8 +83,8 @@ const PhotosList = () => {
 
   return (
     <div className="container mx-auto">
-      <h2 className="py-8 text-center text-4xl font-bold">Photos List</h2>
-      <div className="grid grid-cols-1 gap-4">
+      <h2 className="ml-12 py-8 text-4xl font-bold">Le tue foto</h2>
+      <div className="grid grid-cols-1">
         {photo.map((photo) => (
           <Photo
             onSelectedPhoto={handleSelectedPhoto}

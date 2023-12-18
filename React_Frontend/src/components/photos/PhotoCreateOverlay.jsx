@@ -101,8 +101,6 @@ const PhotoCreateOverlay = ({
       formDataTOSend.append(key, formValues[key]);
     });
 
-    // console.log(formDataTOSend);
-
     try {
       await onSave(isNew ? formValues : formDataTOSend);
       setFormValues(initialData);

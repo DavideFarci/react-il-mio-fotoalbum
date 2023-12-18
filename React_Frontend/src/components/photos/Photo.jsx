@@ -4,10 +4,10 @@ const Photo = ({ photo, onSelectedPhoto, onDeletePhoto }) => {
   const { id, title, image, description, visible, categories } = photo;
   // console.log(categories);
   return (
-    <div className="max-w-2xl border p-2">
-      <h4>{title}</h4>
+    <div className="mb-12 ml-12 max-w-2xl rounded-lg bg-red-700/30 p-2">
+      <h4 className="text-xl font-bold">{title}</h4>
       <img src={`http://localhost:5174/${image}`} alt="" />
-      <p>{description}</p>
+      <p className="font-semibold">{description}</p>
       <div>
         Visibile{' '}
         {visible ? (
@@ -17,13 +17,14 @@ const Photo = ({ photo, onSelectedPhoto, onDeletePhoto }) => {
         )}
       </div>
       <div>
+        <span className="font-bold">Categorie: </span>
         {categories?.map((categ) => (
-          <span key={categ.id} className="mr-2">
+          <span key={categ.id} className="mr-2 text-sm font-semibold">
             {categ.name}
           </span>
         ))}
       </div>
-      <div>
+      <div className="text-right">
         <i
           onClick={() => onSelectedPhoto(photo)}
           title="Modifica"
