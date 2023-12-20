@@ -18,7 +18,7 @@ async function login(req, res, next) {
       },
     });
     if (!user) {
-      next(new PrismaExeption("Utente non trovato"));
+      return next(new PrismaExeption("Utente non trovato"));
 
       // throw new authError("Utente non trovato");
     }
@@ -26,7 +26,7 @@ async function login(req, res, next) {
     const passMatch = await bcrypt.compare(password, user.password);
     if (!passMatch) {
       // next(new PrismaClient("Password errata"));
-      throw new authError("Password errata");
+      return next(new authError("Password errata"));
     }
     // generare il token JWT
     const token = jsonwebToken.sign(user, process.env.JWT_SECRET, {
@@ -37,23 +37,24 @@ async function login(req, res, next) {
     // restutuire il token e i dati dell'utente
     res.json({ user, token });
   } catch (error) {
-    next(new authError(error.message));
+    return next(new authError(error.message));
   }
 }
 
 // ME
 async function me(req, res, next) {
   // Estraggo l'id dell'utente dalla richiesta
-  const { id } = req.body;
+  const { id } = req.user;
   // Verifico se è presente un utente con quelle credenziali
-  const user = prisma.user.findUnique({
+  const user = await prisma.user.findUnique({
     where: {
       id: id,
     },
   });
+  log(user);
   // Lancio un errore in caso di mancata corrispondenza
   if (!user) {
-    throw new authError("Utente non trovato");
+    return next(new authError("Utente non trovato"));
   }
   // Elimino la password dalle informazioni dell'utente
   delete user.password;

@@ -4,7 +4,7 @@ const userController = require("../../controllers/admin/userController");
 const { checkSchema } = require("express-validator");
 const schemaValidator = require("../../middlewares/schemaValidator");
 const userLogin = require("../../validations/userLogin");
-// const authHandler = require("../middlwares/authHandler");
+const authHandler = require("../../middlewares/authHandler");
 
 router.post(
   "/login",
@@ -13,11 +13,7 @@ router.post(
   userController.login
 );
 
-router.get(
-  "/me",
-  // authHandler,
-  userController.me
-);
+router.get("/me", authHandler, userController.me);
 
 module.exports = router;
 

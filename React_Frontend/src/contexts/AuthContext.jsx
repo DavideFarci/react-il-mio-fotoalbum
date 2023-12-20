@@ -48,7 +48,7 @@ export function AuthProvider({ children }) {
   };
 
   const getLoggedUser = async () => {
-    const user = await fetchApi('/me');
+    const { user } = await fetchApi('/me');
 
     setUser(user);
     setIsLogged(true);
