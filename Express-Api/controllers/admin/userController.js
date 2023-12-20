@@ -51,7 +51,6 @@ async function me(req, res, next) {
       id: id,
     },
   });
-  log(user);
   // Lancio un errore in caso di mancata corrispondenza
   if (!user) {
     return next(new authError("Utente non trovato"));
